@@ -40,9 +40,15 @@ type genesisSpecMarshaling struct {
 	Alloc      map[common.UnprefixedAddress]core.GenesisAccount
 }
 
+type MaxCodeConfigStruct struct {
+	Block *big.Int `json:"block,omitempty"`
+	Size  uint64   `json:"size,omitempty"`
+}
+
 type QuorumChainConfig struct {
 	*params.ChainConfig
 	IsQuorum bool `json:"isQuorum,omitempty"`
+    MaxCodeSizeConfig []MaxCodeConfigStruct `json:"maxCodeSizeConfig,omitempty"`
 }
 
 type QuorumGenesis struct {
@@ -69,6 +75,8 @@ func ToQuorum(g *core.Genesis, isQuorum bool) *QuorumGenesis {
 		Config: &QuorumChainConfig{
 			ChainConfig: g.Config,
 			IsQuorum:    isQuorum,
+            //https://github.com/ConsenSys/quorum/blob/master/params/config.go#L469
+            MaxCodeSizeConfig: []MaxCodeConfigStruct{ {Block:big.NewInt(0), Size: 128} },
 		},
 		Nonce:      g.Nonce,
 		Timestamp:  g.Timestamp,

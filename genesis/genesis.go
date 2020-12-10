@@ -51,7 +51,7 @@ func New(options ...Option) *core.Genesis {
 			EIP150Block:          big.NewInt(0),
 			EIP155Block:          big.NewInt(0),
 			EIP158Block:          big.NewInt(0),
-            QIP714Block:          big.NewInt(20),
+			QIP714Block: big.NewInt(20),
 			TransactionSizeLimit: 64,
 			Istanbul: &params.IstanbulConfig{
 				ProposerPolicy: uint64(istanbul.DefaultConfig.ProposerPolicy),
